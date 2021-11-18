@@ -48,6 +48,14 @@ namespace NumberChecker
 
         static NumberType NumberChecker(int number)
         {
+            bool IsValid(int number)
+            {
+                return !(number < 2);
+            }
+
+            if (!IsValid(number))
+                return NumberType.RegularNumber;
+
             bool isPrime = IsPrime(number);
             if (isPrime)
             {
@@ -84,7 +92,7 @@ namespace NumberChecker
 
         static bool IsMersennePrime(int number)
         {
-            for(int i=2;i<=number+1;i*=2)
+            for(int i=2;i<number+1;i*=2)
             {
                 if (number == i - 1 || number == i + 1)
                     return true;
