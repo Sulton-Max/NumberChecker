@@ -56,22 +56,18 @@ namespace NumberChecker
             if (!IsValid(number))
                 return NumberType.RegularNumber;
 
-            bool isPrime = IsPrime(number);
-            if (isPrime)
-            {
-                if (IsMersennePrime(number))
-                    return NumberType.MersennePrimeNumber;
-                else
-                    return NumberType.PrimeNumber;
-            }
-            else
-                return NumberType.RegularNumber;
+            if (IsMersennePrime(number))
+                return NumberType.MersennePrimeNumber;
+            if (IsPrime(number))
+                return NumberType.PrimeNumber;
+
+            return NumberType.RegularNumber;
         }
 
         static bool IsPrime(int number)
         {
             bool isPrime = true;
-            for (int i = 2; i < Math.Sqrt(number); i++)
+            for (int i = 2; i <= Math.Sqrt(number); i++)
                 if (number % i == 0)
                 {
                     isPrime = false;
@@ -83,9 +79,9 @@ namespace NumberChecker
 
         static bool IsMersennePrime(int number)
         {
-            for(int i=2;i<=number+1;i*=2)
+            for (int i = 2; i <= number + 1; i *= 2)
             {
-                if (number == i - 1 || number == i + 1)
+                if ((number == i - 1 || number == i + 1) && IsPrime(number))
                     return true;
             }
             return false;
